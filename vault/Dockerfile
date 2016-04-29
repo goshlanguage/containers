@@ -11,6 +11,7 @@ RUN apk --update add git \
     git clone https://github.com/hashicorp/vault \
     $GOPATH/src/github.com/hashicorp/vault && \
     cd $GOPATH/src/github.com/hashicorp/vault && \
+    go get ./... && \
     make bootstrap && \
     make
 
