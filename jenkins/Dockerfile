@@ -14,7 +14,12 @@ RUN usermod -u 2222 -g 2222 jenkins
 RUN mkdir -p /var/log/jenkins
 RUN mkdir -p /var/log/supervisor
 
+VOLUME ["/var/jenkins_home"]
+
 RUN chown -R jenkins. /var/log/
+RUN touch /var/jenkins_home/copy_reference_file.log
+RUN chown -R jenkins. /var/jenkins_home/
+
 
 COPY files/etc/supervisor/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 CMD ["/usr/bin/supervisord","-c","/etc/supervisor/conf.d/supervisor.conf"]
