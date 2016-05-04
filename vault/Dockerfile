@@ -1,11 +1,9 @@
-FROM alpine:latest
+FROM golang:1.6.2-alpine
 MAINTAINER Ryan Hartje <ryan@ryanhartje.com>
 
-ENV GOPATH="/usr/lib"
-ENV GOROOT="/usr/lib/go"
+ENV GOPATH="/go"
 
 RUN apk --update add git \
-    go \
     make && \ 
     mkdir -p $GOPATH/src/github.com/hashicorp/vault && \
     git clone https://github.com/hashicorp/vault \
@@ -13,7 +11,10 @@ RUN apk --update add git \
     cd $GOPATH/src/github.com/hashicorp/vault && \
     go get ./... && \
     make bootstrap && \
-    make
+    make && \
+    mkdir /etc/vault
+
+COPY files/etc/vault/config.json /etc/vault/config.json
 
 EXPOSE 8200 8500 
-ENTRYPOINT ["/usr/local/bin/vault"]
+ENTRYPOINT ["/go/bin/vault","server","-config=/etc/vault/config.json","--log-level=debug"]

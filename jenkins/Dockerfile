@@ -18,7 +18,6 @@ RUN mkdir -p /var/log/supervisor
 
 
 RUN chown -R jenkins. /var/log/
-#RUN touch /var/jenkins_home/copy_reference_file.log
 RUN chown -R jenkins. /var/jenkins_home/
 
 
