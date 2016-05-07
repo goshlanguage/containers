@@ -4,7 +4,8 @@ MAINTAINER Ryan Hartje <ryan@ryanhartje.com>
 ENV GOPATH="/go"
 
 RUN apk --update add git \
-    make && \ 
+    make \ 
+    libcap && \
     mkdir -p $GOPATH/src/github.com/hashicorp/vault && \
     git clone https://github.com/hashicorp/vault \
     $GOPATH/src/github.com/hashicorp/vault && \
@@ -12,6 +13,7 @@ RUN apk --update add git \
     go get ./... && \
     make bootstrap && \
     make && \
+    setcap cap_ipc_lock=+ep $(readlink -f $(which vault)) && \
     mkdir /etc/vault
 
 COPY files/etc/vault/config.json /etc/vault/config.json
