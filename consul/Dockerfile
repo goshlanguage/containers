@@ -24,5 +24,5 @@ RUN export GOPATH=/go && \
 
 VOLUME ["/data/consul"]
 
-EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 53 53/udp
+EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 8500 53 53/udp
 
