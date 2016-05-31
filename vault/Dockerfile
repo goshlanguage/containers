@@ -13,10 +13,14 @@ RUN apk --update add git \
     go get ./... && \
     make bootstrap && \
     make && \
-    setcap cap_ipc_lock=+ep $(readlink -f $(which vault)) && \
+    # setcap cap_ipc_lock=+ep $(readlink -f $(which vault)) && \
     mkdir /etc/vault
 
 COPY files/etc/vault/config.json /etc/vault/config.json
+COPY files/bootstrap.sh /root/bootstrap.sh
 
 EXPOSE 8200 8500 
+#ENTRYPOINT ["/go/bin/vault","server","-config=/etc/vault/config.json","--log-level=debug"]
+RUN ["/bin/sh","/root/bootstrap.sh"]
 ENTRYPOINT ["/go/bin/vault","server","-config=/etc/vault/config.json","--log-level=debug"]
+#ENTRYPOINT ["/sbin/init"] 
