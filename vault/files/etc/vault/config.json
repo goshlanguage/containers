@@ -1,10 +1,11 @@
 backend "file" {
-  path = "vault/"
+ path = "/vault"
 }
 
 listener "tcp" {
  address = "0.0.0.0:8200"
- tls_disable = 1
+ tls_cert_file = "/etc/ssl/cert.pem"
+ tls_key_file = "/etc/ssl/key.pem"
 }
 
 disable_mlock = true
