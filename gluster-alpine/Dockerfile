@@ -1,14 +1,14 @@
-FROM ubuntu:16.04
+FROM alpine:latest 
 
 COPY init.sh /etc/init.sh
 
-RUN apt-get update && apt-get install -y wget \
+RUN apk --update install -y wget \
     unzip \
     lvm2 \
     software-properties-common \
     && wget -O /tmp/consul.zip https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_linux_amd64.zip \
     && unzip /tmp/consul.zip -d /bin/ \
-    && apt-add-repository ppa:gluster/glusterfs-3.9 \
+    && apt-add-repository ppa:gluster/glusterfs-3.7 \
     && apt-get update \
     && apt-get -y install glusterfs-server glusterfs-client attr \
     && apt-get clean \
