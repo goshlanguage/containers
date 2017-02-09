@@ -1,16 +1,33 @@
 version: "2"
 services:
-  consul:
+  consul_1:
     build: consul/
     hostname: consul
-    ports:
-      - "8300:8300"
-      - "8400:8400"
-      - "8500:8500"
-      - "8600:53"
     command: agent -server -bootstrap-expect 1 -config-dir /consul/conf.d
+    ports:
+        - "8500:8500"
     volumes:
       - ~/volumes/consul/assets/conf.d:/consul/conf.d
+      - ~/volumes/consul/assets/data:/consul/data
+  consul_2:
+    build: consul/
+    depends_on:
+        - "consul_1"
+    hostname: consul2
+    command: agent -join consul_1 -config-dir /consul/conf.d
+    volumes:
+      - ~/volumes/consul/assets/conf.d:/consul/conf.d
+      - ~/volumes/consul/assets/data:/consul/data
+  consul_3:
+    build: consul/
+    command: agent -join consul_1 -config-dir /consul/conf.d
+    depends_on:
+        - "consul_1"
+        - "consul_2"
+    hostname: consul3
+    volumes:
+      - ~/volumes/consul/assets/conf.d:/consul/conf.d
+      - ~/volumes/consul/assets/data:/consul/data
   vault:
     build: vault/
     hostname: vault
@@ -18,10 +35,11 @@ services:
       - "8200:8200"
     command: server -config=/vault/conf.d/vault.hcl
     depends_on:
-      - "consul"
+      - "consul_1"
+      - "consul_2"
+      - "consul_3"
     environment:
       - VAULT_ADDR=http://127.0.0.1:8200
-    links:
-      - consul:consul
     volumes:
       - ~/volumes/vault/assets/conf.d:/vault/conf.d
+
