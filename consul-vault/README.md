@@ -29,6 +29,12 @@ mkdir -p ~/volumes/consul/assets/conf.d;
 mkdir -p ~/volumes/vault/assets/conf.d
 ```
 
+To scaffold out the files you'll need, use the init script.
+
+```sh
+./init.sh
+```
+
 Running
 ===
 
@@ -88,6 +94,6 @@ Key (will be hidden):
 
 Next, check your Consul UI to ensure that the vault service has changed from a failed service to a passing service:
 
-http://localhost:8500/ui/#/dc1/services/vault
+http://localhost:8500/ui/
 
 
