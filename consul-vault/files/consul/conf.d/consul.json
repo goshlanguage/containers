@@ -1,0 +1,10 @@
+{  
+   "client_addr":"0.0.0.0",
+   "datacenter": "localhost",
+   "data_dir":"/consul/data",
+   "ports":{  
+      "dns":53
+   },
+   "recursor":"8.8.8.8",
+   "ui_dir":"/consul/ui"
+}
