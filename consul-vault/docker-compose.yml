@@ -7,27 +7,27 @@ services:
     ports:
         - "8500:8500"
     volumes:
-      - ~/volumes/consul/assets/conf.d:/consul/conf.d
-      - ~/volumes/consul/assets/data:/consul/data
+      - ~/volumes/consul/conf.d:/consul/conf.d
+      - ~/volumes/consul/data1:/consul/data
   consul_2:
     build: consul/
     depends_on:
         - "consul_1"
     hostname: consul2
-    command: agent -join consul_1 -config-dir /consul/conf.d
+    command: agent -server -join consul_1 -config-dir /consul/conf.d
     volumes:
-      - ~/volumes/consul/assets/conf.d:/consul/conf.d
-      - ~/volumes/consul/assets/data:/consul/data
+      - ~/volumes/consul/conf.d:/consul/conf.d
+      - ~/volumes/consul/data2:/consul/data
   consul_3:
     build: consul/
-    command: agent -join consul_1 -config-dir /consul/conf.d
+    command: agent -server -join consul_1 -config-dir /consul/conf.d
     depends_on:
         - "consul_1"
         - "consul_2"
     hostname: consul3
     volumes:
-      - ~/volumes/consul/assets/conf.d:/consul/conf.d
-      - ~/volumes/consul/assets/data:/consul/data
+      - ~/volumes/consul/conf.d:/consul/conf.d
+      - ~/volumes/consul/data3:/consul/data
   vault:
     build: vault/
     hostname: vault
@@ -41,5 +41,5 @@ services:
     environment:
       - VAULT_ADDR=http://127.0.0.1:8200
     volumes:
-      - ~/volumes/vault/assets/conf.d:/vault/conf.d
+      - ~/volumes/vault/conf.d:/vault/conf.d
 
