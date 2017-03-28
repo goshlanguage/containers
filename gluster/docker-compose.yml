@@ -1,0 +1,12 @@
+version: "2"
+services:
+  gluster_1:
+    build: .
+    ports:
+        - "2049:2049"
+  gluster_2:
+    build: .
+  gluster_3:
+    build: .
+  gluster_4:
+    build: .

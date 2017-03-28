@@ -1,9 +1,7 @@
 FROM debian:jessie
-#ENV SHELL /bin/bash
 
-
-ENV CONSUL_VERSION 0.7.3
-ENV UI_VERSION 0.7.3
+ENV CONSUL_VERSION 0.7.5
+ENV UI_VERSION 0.7.5
 
 RUN apt-get update && \
     apt-get install ca-certificates curl unzip -y && \
@@ -26,4 +24,3 @@ EXPOSE 8300 8400 8500 8600
 
 ENTRYPOINT ["/consul/consul"]
 
-CMD []
