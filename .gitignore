@@ -1,2 +1,2 @@
 /consul-vault/volumes/vault/data
-/consul-vault/volumes/consul/assets/data
+/consul-vault/volumes/consul/data*
