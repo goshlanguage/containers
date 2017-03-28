@@ -3,12 +3,12 @@ services:
   consul_1:
     build: consul/
     hostname: consul
-    command: agent -server -bootstrap-expect 1 -config-dir /consul/conf.d
+    command: agent -server -bootstrap-expect 1 -config-dir /consul/conf.d 
     ports:
         - "8500:8500"
     volumes:
-      - ~/volumes/consul/conf.d:/consul/conf.d
-      - ~/volumes/consul/data1:/consul/data
+      - ./volumes/consul/conf.d:/consul/conf.d
+      - ./volumes/consul/data1:/consul/data
   consul_2:
     build: consul/
     depends_on:
@@ -16,8 +16,8 @@ services:
     hostname: consul2
     command: agent -server -join consul_1 -config-dir /consul/conf.d
     volumes:
-      - ~/volumes/consul/conf.d:/consul/conf.d
-      - ~/volumes/consul/data2:/consul/data
+      - ./volumes/consul/conf.d:/consul/conf.d
+      - ./volumes/consul/data2:/consul/data
   consul_3:
     build: consul/
     command: agent -server -join consul_1 -config-dir /consul/conf.d
@@ -26,11 +26,12 @@ services:
         - "consul_2"
     hostname: consul3
     volumes:
-      - ~/volumes/consul/conf.d:/consul/conf.d
-      - ~/volumes/consul/data3:/consul/data
+      - ./volumes/consul/conf.d:/consul/conf.d
+      - ./volumes/consul/data3:/consul/data
   vault:
     build: vault/
     hostname: vault
+    container_name: vault
     ports:
       - "8200:8200"
     command: server -config=/vault/conf.d/vault.hcl
@@ -41,5 +42,5 @@ services:
     environment:
       - VAULT_ADDR=http://127.0.0.1:8200
     volumes:
-      - ~/volumes/vault/conf.d:/vault/conf.d
+      - ./volumes/vault/conf.d:/vault/conf.d
 

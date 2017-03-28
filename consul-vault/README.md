@@ -22,18 +22,6 @@ Debian/Ubuntu
 apt-get install docker-compose
 ```
 
-Next, setup the following folders in your home dir, or create your own folders for vault and consul's bind mounts, and edit docker-compose.yml to update ~/volumes/consul/* and ~/volumes/vault/*
-
-```sh
-mkdir -p ~/volumes/consul/assets/conf.d;
-mkdir -p ~/volumes/vault/assets/conf.d
-```
-
-To scaffold out the files you'll need, use the init script.
-
-```sh
-./init.sh
-```
 
 Running
 ===
@@ -95,5 +83,3 @@ Key (will be hidden):
 Next, check your Consul UI to ensure that the vault service has changed from a failed service to a passing service:
 
 http://localhost:8500/ui/
-
-
