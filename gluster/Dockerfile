@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install -y wget \
     unzip \
     lvm2 \
     software-properties-common \
+    rpcbind \
+    libnfsidmap2 \
+    nfs-common \
     && apt-add-repository ppa:gluster/glusterfs-3.10 \
     && apt-get update \
     && apt-get -y install glusterfs-server glusterfs-client attr \
