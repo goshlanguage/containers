@@ -1,5 +1,4 @@
-FROM solita/ubuntu-systemd:latest
-#FROM ubuntu:16.04
+FROM ubuntu:16.04
 
 COPY bin/* /bin/
 
